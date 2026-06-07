@@ -1,195 +1,79 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['id'])){
+    header("Location: login.php");
+    exit;
+}
+
+include 'koneksi.php';
+
+$result = mysqli_query($conn, "SELECT * FROM tamu");
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Sistem Buku Tamu</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Data Tamu</title>
 </head>
 <body>
 
-<div class="wrapper">
+<h2>Data Tamu</h2>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+<a href="tambah_tamu.php">Tambah Tamu</a>
+<br><br>
 
-                <h4 class="logo">Buku Tamu</h4>
+<table border="1" cellpadding="10">
 
-                <ul class="menu">
-            <li>
-                <a href="dashboard.php">Dashboard</a>
-            </li>
+<tr>
+    <th>No</th>
+    <th>Nama</th>
+    <th>Instansi</th>
+    <th>Tujuan</th>
+    <th>Tanggal</th>
+    <th>Aksi</th>
+</tr>
 
-            <li class="active">
-                <a href="data_tamu.php">Data Tamu</a>
-            </li>
+<?php
+$no = 1;
 
-            <li>
-                <a href="tambah_tamu.php">Tambah Tamu</a>
-            </li>
+while($row = mysqli_fetch_assoc($result)){
+?>
 
-            <li>
-                <a href="kelola_user.php">Kelola User</a>
-            </li>
+<tr>
 
-            <li>
-                <a href="logout.php">Logout</a>
-            </li>
-        </ul>
+    <td><?= $no++; ?></td>
+    <td><?= $row['nama']; ?></td>
+    <td><?= $row['instansi']; ?></td>
+    <td><?= $row['tujuan']; ?></td>
+    <td><?= $row['tanggal']; ?></td>
 
-    </div>
-
-<!-- Main Content -->
-<div class="main-content">
-
-    <div class="topbar">
-        <h3>Data Tamu</h3>
-        <span class="admin-text">Admin</span>
-    </div>
-
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-        <h4 class="fw-semibold mb-0">
-            Daftar Data Tamu
-        </h4>
-
-        <a href="tambah_tamu.php"
-           class="btn btn-primary px-4">
-            + Tambah Tamu
+    <td>
+        <a href="edit_tamu.php?id=<?= $row['id']; ?>">
+            Edit
         </a>
 
-    </div>
+        |
 
-    <!-- Search -->
-    <div class="mb-4">
-        <input
-            type="text"
-            class="form-control"
-            placeholder="Cari nama tamu, instansi, atau tujuan...">
-    </div>
+        <a href="hapus_tamu.php?id=<?= $row['id']; ?>"
+           onclick="return confirm('Yakin ingin menghapus data ini?')">
+            Hapus
+        </a>
+    </td>
 
-    <!-- Table -->
-    <div class="card table-card">
+</tr>
 
-        <div class="card-body">
+<?php
+}
+?>
 
-            <div class="table-responsive">
+</table>
 
-                <table class="table table-hover align-middle">
+<br><br>
 
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Instansi</th>
-                            <th>Tujuan</th>
-                            <th>Tanggal</th>
-                            <th>Status</th>
-                            <th width="180">Aksi</th>
-                        </tr>
-                    </thead>
+<a href="logout.php">Logout</a>
 
-                    <tbody>
-
-                        <tr>
-                            <td>1</td>
-                            <td>Andi Pratama</td>
-                            <td>ITS</td>
-                            <td>Konsultasi</td>
-                            <td>07 Juni 2026</td>
-
-                            <td>
-                                <span class="badge bg-success">
-                                    Selesai
-                                </span>
-                            </td>
-
-                            <td>
-                                <a href="edit_tamu.php"
-                                class="btn btn-warning btn-sm">
-                                Edit
-                                </a>
-
-                                <button
-                                    type="button"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="confirm('Yakin ingin menghapus data?')">
-                                    Hapus
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>2</td>
-                            <td>Budi Santoso</td>
-                            <td>Universitas Brawijaya</td>
-                            <td>Kunjungan</td>
-                            <td>07 Juni 2026</td>
-
-                            <td>
-                                <span class="badge bg-primary">
-                                    Aktif
-                                </span>
-                            </td>
-
-                            <td>
-                                <a href="edit_tamu.php"
-                                class="btn btn-warning btn-sm">
-                                Edit
-                                </a>
-
-                                <button
-                                    type="button"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="confirm('Yakin ingin menghapus data?')">
-                                    Hapus
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>3</td>
-                            <td>Siti Aisyah</td>
-                            <td>Universitas Negeri Malang</td>
-                            <td>Wawancara</td>
-                            <td>07 Juni 2026</td>
-
-                            <td>
-                                <span class="badge bg-secondary">
-                                    Menunggu
-                                </span>
-                            </td>
-
-                            <td>
-                                <a href="edit_tamu.php"
-                                class="btn btn-warning btn-sm">
-                                Edit
-                                </a>
-
-                                <button
-                                    type="button"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="confirm('Yakin ingin menghapus data?')">
-                                    Hapus
-                                </button>
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-```
+</body>
+</html>
