@@ -1,0 +1,131 @@
+body{
+    background:#F1F5F9;
+    font-family:'Inter',sans-serif;
+    margin:0;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    display:block;
+}
+
+.menu a:hover{
+    color:white;
+}
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+.sidebar{
+    width:220px;
+    background:#1E3A8A;
+    color:white;
+    padding:30px;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:40px;
+}
+
+.menu{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.menu li{
+    padding:14px 18px;
+    margin-bottom:12px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.menu li:hover,
+.menu .active{
+    background:rgba(255,255,255,.15);
+}
+
+.main-content{
+    flex:1;
+    padding:40px;
+    padding-bottom:100px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.topbar h3{
+    font-size:3rem;
+    font-weight:600;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+}
+
+.dashboard-card h6{
+    color:#64748B;
+    font-size:1.1rem;
+}
+
+.dashboard-card h2{
+    font-size:3rem;
+    font-weight:700;
+    margin-top:10px;
+}
+
+.table-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+    min-height:350px;
+}
+
+.form-control{
+    border-radius:12px;
+    padding:12px;
+}
+
+.form-control:focus{
+    box-shadow:none;
+    border-color:#2563EB;
+}
+
+.btn-primary{
+    background:#2563EB;
+    border:none;
+    border-radius:12px;
+    padding:12px 20px;
+    font-weight:500;
+}
+
+.btn-primary:hover{
+    background:#1D4ED8;
+}
+
+.table th{
+    font-weight:600;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+.admin-text{
+    color:#334155;
+    font-size:18px;
+    font-weight:500;
+}
