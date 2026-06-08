@@ -1,4 +1,3 @@
-```php
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,11 +35,11 @@
             </li>
 
             <li>
-                <a href="#">Kelola User</a>
+                <a href="kelola_user.php">Kelola User</a>
             </li>
 
             <li>
-                <a href="#">Logout</a>
+                <a href="logout.php">Logout</a>
             </li>
 
         </ul>
