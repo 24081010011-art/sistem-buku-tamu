@@ -1,32 +1,45 @@
 <?php
+
 session_start();
 include 'koneksi.php';
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+$username = trim($_POST['username']);
+$password = trim($_POST['password']);
 
-$query = mysqli_query(
+$stmt = mysqli_prepare(
     $conn,
-    "SELECT * FROM users WHERE username='$username'"
+    "SELECT * FROM users WHERE username=?"
 );
 
-$data = mysqli_fetch_assoc($query);
+mysqli_stmt_bind_param(
+    $stmt,
+    "s",
+    $username
+);
 
-if($data){
+mysqli_stmt_execute($stmt);
 
-    if(password_verify($password, $data['password'])){
+$result = mysqli_stmt_get_result($stmt);
 
-        $_SESSION['id'] = $data['id'];
-        $_SESSION['nama'] = $data['nama'];
-        $_SESSION['role'] = $data['role'];
+if(mysqli_num_rows($result) == 1){
 
-        header("Location: dashboard.php");
+    $user = mysqli_fetch_assoc($result);
 
-    }else{
-        echo "Password salah";
+    if(password_verify($password,$user['password'])){
+
+        $_SESSION['id'] = $user['id'];
+        $_SESSION['nama'] = $user['nama'];
+        $_SESSION['role'] = $user['role'];
+
+        if($user['role'] == 'admin'){
+            header("Location: dashboard.php");
+        }else{
+            header("Location: dashboard_user.php");
+        }
+
+        exit;
     }
-
-}else{
-    echo "Username tidak ditemukan";
 }
-?>
+
+header("Location: login.php?error=1");
+exit;
