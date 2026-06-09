@@ -1,115 +1,63 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jun 07, 2026 at 06:35 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               8.0.44 - MySQL Community Server - GPL
+-- Server OS:                    Win64
+-- HeidiSQL Version:             12.8.0.6908
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Database: `sistem_buku_tamu`
---
 
--- --------------------------------------------------------
+-- Dumping database structure for sistem_buku_tamu
+CREATE DATABASE IF NOT EXISTS `sistem_buku_tamu` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `sistem_buku_tamu`;
 
---
--- Table structure for table `tamu`
---
-
-CREATE TABLE `tamu` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `instansi` varchar(100) NOT NULL,
-  `tujuan` text NOT NULL,
+-- Dumping structure for table sistem_buku_tamu.tamu
+CREATE TABLE IF NOT EXISTS `tamu` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `instansi` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `tujuan` text COLLATE utf8mb4_general_ci NOT NULL,
   `tanggal` date NOT NULL,
-  `user_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `user_id` int DEFAULT NULL,
+  `status` varchar(20) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Menunggu',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `tamu_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tamu`
---
+-- Dumping data for table sistem_buku_tamu.tamu: ~3 rows (approximately)
+INSERT INTO `tamu` (`id`, `nama`, `instansi`, `tujuan`, `tanggal`, `user_id`, `status`) VALUES
+	(1, 'Fitriani Nafisa Wailegi', 'UPN VETERAN JATIM', 'KONSULTASI buku', '2026-06-08', 1, 'Selesai'),
+	(4, 'Sarirotun Nimah', 'UPN "Veteran" Jawa Timur', 'Konsultasi Papper', '2026-06-09', 1, 'Menunggu'),
+	(5, 'Jovita Lupiz', 'ITS', 'PKM', '2026-06-13', 1, 'Menunggu');
 
-INSERT INTO `tamu` (`id`, `nama`, `instansi`, `tujuan`, `tanggal`, `user_id`) VALUES
-(1, 'Fitriani Nafisa Wailegi', 'UPN VETERAN JATIM', 'KONSULTASI buku', '2026-06-08', 1);
+-- Dumping structure for table sistem_buku_tamu.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `role` enum('admin','user') COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('Aktif','Nonaktif') COLLATE utf8mb4_general_ci DEFAULT 'Aktif',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+-- Dumping data for table sistem_buku_tamu.users: ~2 rows (approximately)
+INSERT INTO `users` (`id`, `nama`, `username`, `password`, `role`, `status`) VALUES
+	(1, 'Administrator', 'admin', '$2y$10$Tl.hdrfo3na08pQ8LZUZQetIry3sXROrzXHnVLwiR28Gad4f4tisu', 'admin', 'Aktif'),
+	(2, 'User ', 'user', '$2y$10$Tl.hdrfo3na08pQ8LZUZQetIry3sXROrzXHnVLwiR28Gad4f4tisu', 'user', 'Aktif');
 
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `nama` varchar(100) NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('admin','user') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `nama`, `username`, `password`, `role`) VALUES
-(1, 'Administrator', 'admin', '$2y$10$QW36/2PWwfW4dpUBka9it.VTTkJPQFoLXVIrXGAibiDO2rdu.jHom', 'admin'),
-(2, 'User ', 'user', '$2y$10$QW36/2PWwfW4dpUBka9it.VTTkJPQFoLXVIrXGAibiDO2rdu.jHom', 'user');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `tamu`
---
-ALTER TABLE `tamu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tamu`
---
-ALTER TABLE `tamu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tamu`
---
-ALTER TABLE `tamu`
-  ADD CONSTRAINT `tamu_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
-
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
