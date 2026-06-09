@@ -2,8 +2,8 @@
 
 $conn = mysqli_connect(
     "localhost",
-    "root",
-    "",
+    "Sarirotun",
+    "123",
     "sistem_buku_tamu"
 );
 
