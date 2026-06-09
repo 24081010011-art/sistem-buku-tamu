@@ -1,3 +1,4 @@
+/* login */
 body{
     background:#F1F5F9;
     font-family:'Inter',sans-serif;
@@ -129,3 +130,166 @@ body{
     font-size:18px;
     font-weight:500;
 }
+
+/* navigasi */
+.main{
+    flex:1;
+    padding:40px;
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.navbar h1{
+    font-size:56px;
+    font-weight:700;
+    color:#111827;
+}
+
+.user-info{
+    font-size:28px;
+    color:#374151;
+}
+
+.sidebar{
+    width:240px;
+    background:#24378D;
+    min-height:100vh;
+    padding:30px;
+    box-sizing:border-box;
+}
+
+.logo{
+    color:white;
+    font-size:32px;
+    font-weight:700;
+    line-height:1.2;
+    margin-bottom:60px;
+}
+
+.menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:16px 20px;
+    margin-bottom:10px;
+    border-radius:14px;
+    transition:.3s;
+}
+
+.menu a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.menu a.active{
+    background:rgba(255,255,255,.18);
+}
+
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.navbar h1{
+    font-size:72px;
+    font-weight:700;
+    color:#111827;
+}
+
+.user-info{
+    font-size:20px;
+    color:#374151;
+}
+
+/* dashboard admin */
+.main{
+    flex:1;
+    padding:40px;
+    background:#F1F5F9;
+}
+
+.stats-container{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+    margin-bottom:35px;
+}
+
+.stats-card{
+    background:white;
+    border-radius:20px;
+    padding:28px;
+}
+
+.stats-card span{
+    color:#64748B;
+    font-size:18px;
+}
+
+.stats-card h2{
+    margin-top:15px;
+    margin-bottom:10px;
+    font-size:52px;
+    color:#111827;
+}
+
+.stats-card small{
+    color:#64748B;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.section-header h2{
+    font-size:40px;
+}
+
+.btn-tambah{
+    background:#3563E9;
+    color:white;
+    text-decoration:none;
+    padding:14px 25px;
+    border-radius:14px;
+}
+
+.search-box{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:16px;
+    margin-bottom:25px;
+    font-size:16px;
+}
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    text-align:left;
+    padding:16px;
+    border-bottom:1px solid #E5E7EB;
+}
+
+td{
+    padding:16px;
+    border-bottom:1px solid #E5E7EB;
+}
+
