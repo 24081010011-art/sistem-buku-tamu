@@ -13,32 +13,29 @@ if(isset($_GET['ubah_status'])){
 
     $cek = mysqli_query(
         $conn,
-        "SELECT * FROM user
+        "SELECT * FROM users
         WHERE id='$id'"
     );
 
-    $data = mysqli_fetch_assoc($cek);
+    $user = mysqli_fetch_assoc($cek);
 
-    if($data){
+    if($user){
 
-        if($data['status'] == 'Aktif'){
-            $status_baru = 'Nonaktif';
-        }else{
-            $status_baru = 'Aktif';
-        }
+        $status_baru =
+            ($user['status'] == 'Aktif')
+            ? 'Nonaktif'
+            : 'Aktif';
 
         mysqli_query(
             $conn,
-            "UPDATE user
+            "UPDATE users
             SET status='$status_baru'
             WHERE id='$id'"
         );
-
-        echo "<script>
-                window.location='kelola_user.php';
-              </script>";
-        exit;
     }
+
+    header("Location: kelola_user.php");
+    exit;
 }
 
 $cari = isset($_GET['cari']) ? $_GET['cari'] : '';
@@ -48,8 +45,9 @@ if($cari != ''){
     $query = mysqli_query(
         $conn,
         "SELECT *
-        FROM user
+        FROM users
         WHERE username LIKE '%$cari%'
+        OR nama LIKE '%$cari%'
         ORDER BY id ASC"
     );
 
@@ -58,24 +56,21 @@ if($cari != ''){
     $query = mysqli_query(
         $conn,
         "SELECT *
-        FROM user
+        FROM users
         ORDER BY id ASC"
     );
-
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Kelola User</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
@@ -166,10 +161,11 @@ if($cari != ''){
 
                             <tr>
                                 <th>No</th>
+                                <th>Nama</th>
                                 <th>Username</th>
                                 <th>Role</th>
                                 <th>Status</th>
-                                <th width="180">Aksi</th>
+                                <th width="200">Aksi</th>
                             </tr>
 
                         </thead>
@@ -186,15 +182,15 @@ if($cari != ''){
 
                             <td><?= $no++; ?></td>
 
+                            <td><?= $data['nama']; ?></td>
+
                             <td><?= $data['username']; ?></td>
 
-                            <td>
-                                <?= ucfirst($data['role']); ?>
-                            </td>
+                            <td><?= ucfirst($data['role']); ?></td>
 
                             <td>
 
-                                <?php if($data['status']=='Aktif'){ ?>
+                                <?php if($data['status'] == 'Aktif'){ ?>
 
                                     <span class="badge bg-success">
                                         Aktif
@@ -214,7 +210,7 @@ if($cari != ''){
 
                                 <?php if($data['id'] != $_SESSION['id']){ ?>
 
-                                    <?php if($data['status']=='Aktif'){ ?>
+                                    <?php if($data['status'] == 'Aktif'){ ?>
 
                                         <a
                                             href="?ubah_status=<?= $data['id']; ?>"
