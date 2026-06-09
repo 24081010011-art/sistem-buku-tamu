@@ -174,7 +174,7 @@ Pemrograman Web C
 
 ## Program Studi
 
-Sistem Informasi
+Informatika
 
 ---
 
