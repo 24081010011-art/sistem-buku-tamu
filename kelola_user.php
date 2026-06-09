@@ -78,47 +78,7 @@ if($cari != ''){
 
 <div class="wrapper">
 
-    <div class="sidebar">
-
-        <h4 class="logo">
-            Buku Tamu
-        </h4>
-
-        <ul class="menu">
-
-            <li>
-                <a href="dashboard.php">
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a href="data_tamu.php">
-                    Data Tamu
-                </a>
-            </li>
-
-            <li>
-                <a href="tambah_tamu.php">
-                    Tambah Tamu
-                </a>
-            </li>
-
-            <li class="active">
-                <a href="kelola_user.php">
-                    Kelola User
-                </a>
-            </li>
-
-            <li>
-                <a href="logout.php">
-                    Logout
-                </a>
-            </li>
-
-        </ul>
-
-    </div>
+    <?php include 'layout/sidebar.php'; ?>
 
     <div class="main-content">
 
